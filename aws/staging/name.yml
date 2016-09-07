@@ -1,0 +1,4 @@
+---
+name: aws-staging-cf
+meta:
+  vault_prefix: secret/aws/staging/cf

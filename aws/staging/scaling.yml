@@ -1,0 +1,13 @@
+jobs:
+
+- name: runner_z1
+  instances: 1
+
+- name: runner_z2
+  instances: 1
+
+resource_pools:
+
+- name: runner_z2
+  cloud_properties:
+    instance_type: t2.medium

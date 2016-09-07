@@ -1,0 +1,21 @@
+---
+meta:
+  skip_ssl_validation: true
+  cf:
+    base_domain: staging.xiujiaogao.com
+    directory_key_prefix: staging-xiujiaogao
+    blobstore_config:
+      fog_connection:
+        aws_access_key_id: (( vault "secret/aws:access_key" ))
+        aws_secret_access_key: (( vault "secret/aws:secret_key"))
+        region: us-west-2
+    ccdb:
+      host: "xj-new-vpc-staging-cf-db.c0lzmwjxe6sq.us-west-2.rds.amazonaws.com" 
+      user: "cfdbadmin"
+      pass: (( vault meta.vault_prefix "/rds:password" ))
+      scheme: postgres
+    uaadb:
+      host: "xj-new-vpc-staging-cf-db.c0lzmwjxe6sq.us-west-2.rds.amazonaws.com"
+      user: "cfdbadmin"
+      pass: (( vault meta.vault_prefix "/rds:password" ))
+      scheme: postgresql

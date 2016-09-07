@@ -1,0 +1,88 @@
+---
+meta:
+  azs:
+    z1: us-west-2a
+    z2: us-west-2b
+    z3: us-west-2c
+  dns: [10.4.0.2]
+  elbs: [xj-new-vpc-staging-cf-elb] # <- ELB name
+  router_security_groups: [wide-open]
+  security_groups: [wide-open]
+
+networks:
+- name: router1
+  subnets:
+  - range: 10.4.35.0/25
+    static: [10.4.35.4 - 10.4.35.100]
+    reserved: [10.4.35.2 - 10.4.35.3] # amazon reserves these
+    gateway: 10.4.35.1
+    cloud_properties:
+      subnet: subnet-b9aac4cf # <--- your subnet ID here
+- name: router2
+  subnets:
+  - range: 10.4.35.128/25
+    static: [10.4.35.132 - 10.4.35.227]
+    reserved: [10.4.35.130 - 10.4.35.131] # amazon reserves these
+    gateway: 10.4.35.129
+    cloud_properties:
+      subnet: subnet-3dc49259 # <--- your subnet ID here
+- name: cf1
+  subnets:
+  - range: 10.4.36.0/24
+    static: [10.4.36.4 - 10.4.36.100]
+    reserved: [10.4.36.2 - 10.4.36.3] # amazon reserves these
+    gateway: 10.4.36.1
+    cloud_properties:
+      subnet: subnet-aeaac4d8 # <--- your subnet ID here
+- name: cf2
+  subnets:
+  - range: 10.4.37.0/24
+    static: [10.4.37.4 - 10.4.37.100]
+    reserved: [10.4.37.2 - 10.4.37.3] # amazon reserves these
+    gateway: 10.4.37.1
+    cloud_properties:
+      subnet: subnet-2ac4924e # <--- your subnet ID here
+- name: cf3
+  subnets:
+  - range: 10.4.38.0/24
+    static: [10.4.38.4 - 10.4.38.100]
+    reserved: [10.4.38.2 - 10.4.38.3] # amazon reserves these
+    gateway: 10.4.38.1
+    cloud_properties:
+      subnet: subnet-98c269c0 # <--- your subnet ID here
+- name: runner1
+  subnets:
+  - range: 10.4.39.0/24
+    static: [10.4.39.4 - 10.4.39.100]
+    reserved: [10.4.39.2 - 10.4.39.3] # amazon reserves these
+    gateway: 10.4.39.1
+    cloud_properties:
+      subnet: subnet-a6aac4d0 # <--- your subnet ID here
+- name: runner2
+  subnets:
+  - range: 10.4.40.0/24
+    static: [10.4.40.4 - 10.4.40.100]
+    reserved: [10.4.40.2 - 10.4.40.3] # amazon reserves these
+    gateway: 10.4.40.1
+    cloud_properties:
+      subnet: subnet-34c49250 # <--- your subnet ID here
+- name: runner3
+  subnets:
+  - range: 10.4.41.0/24
+    static: [10.4.41.4 - 10.4.41.100]
+    reserved: [10.4.41.2 - 10.4.41.3] # amazon reserves these
+    gateway: 10.4.41.1
+    cloud_properties:
+      subnet: subnet-90c269c8 # <--- your subnet ID here
+
+properties:
+  cc:
+    security_group_definitions:
+    - name: load_balancer
+      rules: []
+    - name: services
+      rules:
+      - destination: 10.4.42.0-10.4.44.255
+        protocol: all
+    - name: user_bosh_deployments
+      rules: []
